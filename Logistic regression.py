@@ -3,7 +3,7 @@ import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 
-raw_df = pd.read_csv('C:/Users/timmv/OneDrive/Dokumente/GitHub/ML-Course/weatherAUS.csv')
+raw_df = pd.read_csv('weatherAUS.csv')
 
 raw_df.dropna(subset=['RainToday', 'RainTomorrow'], inplace=True)
 
@@ -178,3 +178,26 @@ new_input = {'Date': '2021-06-19',
             'RainToday': 'Yes'}
 
 print(predict_input(new_input))
+
+import joblib
+
+aussie_rain = {
+    'model':model,
+    'imputer': imputer,
+    'scaler': scaler,
+    'encoder': encoder,
+    'input_cols': input_cols,
+    'target_cols': target_cols,
+    'numeric_cols': numeric_cols,
+    'categorical_cols': cat_cols,
+    'encoded_cols': encoded_cols
+}
+
+joblib.dump(aussie_rain,'aussie_rain.joblib')
+
+aussie_rain2 = joblib.load('aussie_rain.joblib')
+test_preds2 = aussie_rain2['model'].predict(X_test)
+print(accuracy_score(test_targets,test_preds2))
+
+print(encoded_cols)
+print(numeric_cols)
