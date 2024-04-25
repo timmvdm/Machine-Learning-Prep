@@ -11,6 +11,18 @@ model, imputer, scaler, encoder = 0,0,0,0
 numeric_cols, cat_cols, encoded_cols = [],[],[]
 
 
+def plot_df(df, target_column):
+    # print(df.columns)
+    # cols = ['age', 'sex', 'bmi', 'children', 'smoker', 'region', 'charges']
+    for i in cols:
+        fig, ax = plt.subplots()
+        sns.histplot(df[i])
+        fig1, ax1 = plt.subplots()
+        sns.scatterplot(df, x=df[i], y=df[target_column])
+        plt.show()
+
+# plot_df(df, 'charges')
+
 def plot_raw_distributions(raw_df, X='', Y='', Color='', hover='',scatter = True, Title=''):
     sns.set_style('darkgrid')
     matplotlib.rcParams['font.size']=14
